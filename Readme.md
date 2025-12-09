@@ -90,7 +90,7 @@ Using **1-Jan-2015** as the cutoff date.
     colsample_bytree=0.8
 )
 
-model.fit(X_train, y_train)
+> model.fit(X_train, y_train)
 
 ### 5. Forecasting & Evaluation
 
