@@ -118,5 +118,7 @@ Forecast accuracy was reasonable, and visualization showed the model followed el
 Forecast vs Actuals for January 2015:
 
 > ax.scatter(pjme_test.index, pjme_test['PJME_MW'], color='red')
+
 > model.plot(pjme_test_fcst, ax=ax)
+
 > plt.title("January 2015 Forecast vs Actuals")
