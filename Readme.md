@@ -85,16 +85,23 @@ pandas.api.types.CategoricalDtype - Ordered categorical features
 ### XGBoost Model
 
 Conservative hyperparameter tuning (max_depth=3, learning_rate=0.01)
+
 Early stopping to prevent overfitting (50 rounds)
+
 Feature importance analysis using gain metric
+
 Comprehensive evaluation metrics (RMSE, MAE, MAPE, R²)
 
 ### Prophet Model
 
 Automatic seasonality detection (daily, weekly, yearly)
+
 Trend decomposition with changepoint detection
+
 Uncertainty interval estimation (95% confidence)
+
 Component visualization (trend, seasonality, holidays)
+
 Long-term forecasting (up to 5+ years)
 
 ## Visualizations
