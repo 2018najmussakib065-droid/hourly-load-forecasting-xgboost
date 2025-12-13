@@ -59,17 +59,25 @@ pandas.api.types.CategoricalDtype - Ordered categorical features
 ### Data Preprocessing
 
 ✅ Datetime index parsing and validation
+
 ✅ Missing value detection and handling
+
 ✅ Data resampling to ensure continuous hourly intervals
+
 ✅ Train-test split with chronological ordering (crucial for time series)
+
 ✅ Outlier analysis and visualization
 
 ### Feature Engineering
 
 ✅ Temporal Features: hour, day of week, month, quarter, year, day of year, week of year
+
 ✅ Categorical Features: Weekday names (ordered), seasons (Spring/Summer/Fall/Winter)
+
 ✅ Lag Features: 1-hour, 24-hour, and 168-hour (1 week) lags
+
 ✅ Rolling Statistics: 24-hour moving averages and standard deviations
+
 ✅ Date Offset Calculation: Custom seasonal position encoding
 
 ## Model Implementation
