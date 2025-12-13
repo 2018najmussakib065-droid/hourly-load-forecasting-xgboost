@@ -12,9 +12,13 @@ This project implements a comprehensive time series forecasting pipeline for pre
 The analysis includes exploratory data analysis, feature engineering, model training, evaluation, and long-term forecasting visualization.
 ## Dataset
 Source: PJM East Hourly Energy Consumption Data
+
 Time Period: 2002-2020 (approximately 145,000+ hourly observations)
+
 Target Variable: PJME_MW (Energy consumption in megawatts)
+
 Frequency: Hourly measurements
+
 ## Data Characteristics:
 
 Strong daily seasonality (business hours vs off-hours)
