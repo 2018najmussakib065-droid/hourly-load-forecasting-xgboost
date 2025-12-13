@@ -22,10 +22,15 @@ Frequency: Hourly measurements
 ## Data Characteristics:
 
 Strong daily seasonality (business hours vs off-hours)
+
 Weekly patterns (weekdays vs weekends)
+
 Yearly seasonality (summer cooling and winter heating peaks)
+
 Long-term growth trend
+
 ## Technologies Used
+
 ### Core Libraries:
 
 Python 3.x
@@ -36,17 +41,21 @@ scikit-learn - Machine learning utilities and metrics
 ### Machine Learning:
 
 XGBoost - Gradient boosting framework
+
 Facebook Prophet - Time series forecasting
 
 ### Visualization:
 
 Matplotlib - Core plotting library
+
 Seaborn - Statistical data visualization
 
 ### Data Processing:
 
 pandas.api.types.CategoricalDtype - Ordered categorical features
+
 ## Key Features
+
 ### Data Preprocessing
 
 ✅ Datetime index parsing and validation
@@ -64,6 +73,7 @@ pandas.api.types.CategoricalDtype - Ordered categorical features
 ✅ Date Offset Calculation: Custom seasonal position encoding
 
 ## Model Implementation
+
 ### XGBoost Model
 
 Conservative hyperparameter tuning (max_depth=3, learning_rate=0.01)
@@ -80,10 +90,13 @@ Component visualization (trend, seasonality, holidays)
 Long-term forecasting (up to 5+ years)
 
 ## Visualizations
+
 ### 1. Raw Data Exploration
 
 Full Time Series Plot: Dot plot (ms=1) showing ~18 years of hourly data
+
 Weekly Zoom: Detailed view of one week to identify daily patterns
+
 Train-Test Split: Visualization showing data partition
 
 ### 2. Feature Analysis
@@ -94,41 +107,54 @@ Box Plots: Energy consumption by weekday and season
               hue='season', linewidth=1)
 
 Feature Importance: Horizontal bar chart ranking XGBoost features
+
 Correlation Analysis: Heatmap of feature relationships
 
 ### 3. Model Performance
 
 Predictions vs Actuals: Scatter plots and time series overlays
+
 Residual Plots: Distribution and time series of prediction errors
+
 Prophet Components: Decomposition showing trend, weekly, and yearly seasonality
+
 Uncertainty Intervals: Shaded regions showing 95% confidence bounds
 
 ### 4. Forecast Visualization
 
 Long-term Forecast: 5.5-year (2000-day) predictions with uncertainty
+
 First Month Detail: Zoomed view showing hourly pattern accuracy
+
 Component Breakdown: Trend, weekly, and yearly seasonality contributions
 
 ## Results and Insights
+
 ##Key Findings
 
 ### Strong Temporal Patterns:
 
 Daily Cycle: Clear business hours (8 AM - 6 PM) peak consumption
+
 Weekly Cycle: Weekdays consume 10-15% more than weekends
+
 Seasonal Patterns: Summer and winter peaks due to HVAC usage
 
 
 ### Feature Importance (XGBoost):
 
 Top 3 Features: lag24 (yesterday same time), dayofyear, hour
+
 Lag features capture autoregressive nature (previous values predict future)
+
 Time features capture cyclical patterns
 
 
 ### Model Comparison:
 
 Prophet: Better overall performance (RMSE: 81.36 MW)
+
 XGBoost: More flexible, allows custom features
+
 Both models: Capture seasonality effectively
 
