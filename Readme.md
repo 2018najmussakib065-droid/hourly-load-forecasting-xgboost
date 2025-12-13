@@ -1,124 +1,130 @@
-# Hourly Electricity Consumption Forecasting using XGBoost
+![XGBoost-and-its-Uses-in-Machine-Learning-1108x690](https://github.com/user-attachments/assets/756c157e-5819-4c36-8e36-fac8701070a4)
 
-Time Series Analysis · Machine Learning · Feature Engineering
-
-This project applies machine learning-based time series forecasting to predict hourly electricity demand using the PJME (PJM East) hourly dataset.
-Unlike traditional ARIMA/SARIMA models, this project uses XGBoost Regressor, enhanced by thoughtful feature engineering, train-test splitting by time, and model evaluation on unseen future data.
+# Time Series Forecasting: Energy Consumption Analysis with XGBoost and Prophet
+A comprehensive time series analysis project for forecasting hourly energy consumption in the PJM East region using advanced machine learning techniques, featuring extensive data preprocessing, feature engineering, and model evaluation.
 
 ## Project Overview
+This project implements a comprehensive time series forecasting pipeline for predicting hourly energy consumption in megawatts (MW). It explores two powerful forecasting approaches:
 
-The goal of this project is to forecast electricity load for operational and planning purposes.
-Key steps include:
+**XGBoost Regression** - Gradient boosting with extensive feature engineering
+**Facebook Prophet** - Automated time series forecasting with trend and seasonality decomposition
 
-Data preprocessing & cleaning
-
-Creating time-based features (hour, day, month, year, season, etc.)
-
-Splitting data into chronological train/test sets
-
-Training an XGBoost regression model
-
-Evaluating performance on January 2015 load values
-
-Visualizing predictions vs actuals
-
-This provides a realistic demonstration of machine-learning forecasting for real-world time series.
-
-## Features Used for Forecasting
-
-The dataset was enhanced using custom feature engineering:
-
-**Hour of day**
-
-**Day of week**
-
-**Month / Quarter / Year**
-
-**Day of year**
-
-**ISO week of year**
-
-**Season (Spring, Summer, Fall, Winter)**
-
-**Categorical encoding for weekdays**
-
-These features help XGBoost learn both daily and seasonal patterns.
-
-## Tech Stack
-
-**Python**
-
-**Pandas**
-
-**NumPy**
-
-**Matplotlib / Seaborn**
-
-**XGBoost**
-
-**Scikit-learn**
-
-**Jupyter Notebook**
-
+The analysis includes exploratory data analysis, feature engineering, model training, evaluation, and long-term forecasting visualization.
 ## Dataset
-Dataset used: **PJME_hourly.csv**
-It contains hourly electricity demand (MW) for the PJM East region.
+Source: PJM East Hourly Energy Consumption Data
+Time Period: 2002-2020 (approximately 145,000+ hourly observations)
+Target Variable: PJME_MW (Energy consumption in megawatts)
+Frequency: Hourly measurements
+## Data Characteristics:
 
-## Methodology
-### 1. Load & clean the dataset
+Strong daily seasonality (business hours vs off-hours)
+Weekly patterns (weekdays vs weekends)
+Yearly seasonality (summer cooling and winter heating peaks)
+Long-term growth trend
+## Technologies Used
+### Core Libraries:
 
-Datetime index created:
+Python 3.x
+pandas - Data manipulation and analysis
+NumPy - Numerical computing
+scikit-learn - Machine learning utilities and metrics
 
-> pjme = pd.read_csv("PJME_hourly.csv", parse_dates=['Datetime'], index_col='Datetime')
+### Machine Learning:
 
-### 2. Feature Engineering
+XGBoost - Gradient boosting framework
+Facebook Prophet - Time series forecasting
 
-Custom function creates 10+ time-based features:
+### Visualization:
 
-> X, y = create_features(pjme, label='PJME_MW')
+Matplotlib - Core plotting library
+Seaborn - Statistical data visualization
 
-### 3. Train–Test Split (Chronological)
+### Data Processing:
 
-Using **1-Jan-2015** as the cutoff date.
+pandas.api.types.CategoricalDtype - Ordered categorical features
+## Key Features
+### Data Preprocessing
 
-### 4. Model Training
-> model = XGBRegressor(
-    n_estimators=500,
-    learning_rate=0.05,
-    max_depth=6,
-    subsample=0.8,
-    colsample_bytree=0.8
-)
+✅ Datetime index parsing and validation
+✅ Missing value detection and handling
+✅ Data resampling to ensure continuous hourly intervals
+✅ Train-test split with chronological ordering (crucial for time series)
+✅ Outlier analysis and visualization
 
-> model.fit(X_train, y_train)
+### Feature Engineering
 
-### 5. Forecasting & Evaluation
+✅ Temporal Features: hour, day of week, month, quarter, year, day of year, week of year
+✅ Categorical Features: Weekday names (ordered), seasons (Spring/Summer/Fall/Winter)
+✅ Lag Features: 1-hour, 24-hour, and 168-hour (1 week) lags
+✅ Rolling Statistics: 24-hour moving averages and standard deviations
+✅ Date Offset Calculation: Custom seasonal position encoding
 
-Forecasts for **January 2015** were compared against actual values.
+## Model Implementation
+### XGBoost Model
 
-## Metrics used:
+Conservative hyperparameter tuning (max_depth=3, learning_rate=0.01)
+Early stopping to prevent overfitting (50 rounds)
+Feature importance analysis using gain metric
+Comprehensive evaluation metrics (RMSE, MAE, MAPE, R²)
 
-**MAE**
+### Prophet Model
 
-**RMSE**
+Automatic seasonality detection (daily, weekly, yearly)
+Trend decomposition with changepoint detection
+Uncertainty interval estimation (95% confidence)
+Component visualization (trend, seasonality, holidays)
+Long-term forecasting (up to 5+ years)
 
-**MAPE (Mean Absolute Percentage Error)**
->This helps measure real-world forecasting accuracy.
+## Visualizations
+### 1. Raw Data Exploration
 
-## Results (Summary)
+Full Time Series Plot: Dot plot (ms=1) showing ~18 years of hourly data
+Weekly Zoom: Detailed view of one week to identify daily patterns
+Train-Test Split: Visualization showing data partition
 
-XGBoost successfully modeled hourly trends.
+### 2. Feature Analysis
 
-Captured daily and weekly seasonality using feature engineering.
+Box Plots: Energy consumption by weekday and season
 
-Forecast accuracy was reasonable, and visualization showed the model followed electricity load patterns closely.
+> sns.boxplot(data=features_and_target, x='weekday', y='PJME_MW', 
+              hue='season', linewidth=1)
 
-## Visualization Example
+Feature Importance: Horizontal bar chart ranking XGBoost features
+Correlation Analysis: Heatmap of feature relationships
 
-Forecast vs Actuals for January 2015:
+### 3. Model Performance
 
-> ax.scatter(pjme_test.index, pjme_test['PJME_MW'], color='red')
+Predictions vs Actuals: Scatter plots and time series overlays
+Residual Plots: Distribution and time series of prediction errors
+Prophet Components: Decomposition showing trend, weekly, and yearly seasonality
+Uncertainty Intervals: Shaded regions showing 95% confidence bounds
 
-> model.plot(pjme_test_fcst, ax=ax)
+### 4. Forecast Visualization
 
-> plt.title("January 2015 Forecast vs Actuals")
+Long-term Forecast: 5.5-year (2000-day) predictions with uncertainty
+First Month Detail: Zoomed view showing hourly pattern accuracy
+Component Breakdown: Trend, weekly, and yearly seasonality contributions
+
+## Results and Insights
+##Key Findings
+
+### Strong Temporal Patterns:
+
+Daily Cycle: Clear business hours (8 AM - 6 PM) peak consumption
+Weekly Cycle: Weekdays consume 10-15% more than weekends
+Seasonal Patterns: Summer and winter peaks due to HVAC usage
+
+
+### Feature Importance (XGBoost):
+
+Top 3 Features: lag24 (yesterday same time), dayofyear, hour
+Lag features capture autoregressive nature (previous values predict future)
+Time features capture cyclical patterns
+
+
+### Model Comparison:
+
+Prophet: Better overall performance (RMSE: 81.36 MW)
+XGBoost: More flexible, allows custom features
+Both models: Capture seasonality effectively
+
